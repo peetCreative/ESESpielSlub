@@ -15,6 +15,10 @@ import java.awt.GridBagLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
+import java.awt.Font;
 
 
 public class madProgrammedRegisttrationApplication {
@@ -24,6 +28,7 @@ public class madProgrammedRegisttrationApplication {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
+	private JTextPane txtpnNameDeinesVaters;
 
 	/**
 	 * Launch the application.
@@ -64,7 +69,7 @@ public class madProgrammedRegisttrationApplication {
 				ColumnSpec.decode("default:grow"),},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
+				RowSpec.decode("max(40dlu;default)"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -87,11 +92,15 @@ public class madProgrammedRegisttrationApplication {
 				FormFactory.DEFAULT_ROWSPEC,}));
 		
 		JPanel panel_3 = new JPanel();
-		panel.add(panel_3, "2, 2, fill, fill");
+		FlowLayout flowLayout_1 = (FlowLayout) panel_3.getLayout();
+		flowLayout_1.setAlignment(FlowLayout.LEFT);
+		panel.add(panel_3, "2, 2, 1, 2, fill, fill");
 		
-		JTextPane txtpnNameDeinesVaters = new JTextPane();
+		txtpnNameDeinesVaters = new JTextPane();
+		txtpnNameDeinesVaters.setFont(new Font("cmmi10", Font.PLAIN, 17));
+		txtpnNameDeinesVaters.setToolTipText("GGF auch anders herum ;-)");
 		txtpnNameDeinesVaters.setEditable(false);
-		txtpnNameDeinesVaters.setText("Name deines Vaters Mütterlicherseits");
+		txtpnNameDeinesVaters.setText("Name der Tochter der Großmutter väterlicherseits");
 		panel_3.add(txtpnNameDeinesVaters);
 		
 		textField_1 = new JTextField();
@@ -157,7 +166,23 @@ public class madProgrammedRegisttrationApplication {
 		panel.add(txtpnGibDeineDaten, "2, 20, fill, fill");
 		
 		JButton btnRegistrieren = new JButton("Registrieren");
+		btnRegistrieren.addActionListener(new RegisterListener());
 		panel.add(btnRegistrieren, "2, 22");
 	}
+	private class RegisterListener implements ActionListener
+	{
 
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			String[] auswahl = {"0","o","O","i","1","l","j", "|", "!", "/","\\"} ;
+			String password = "";
+			Random rand = new Random();
+			for( int i = 3; i < 10; i++){
+				password += auswahl[rand.nextInt(auswahl.length)];
+			}
+			textField_3.setText(password);
+		}
+		
+	}
 }
+
